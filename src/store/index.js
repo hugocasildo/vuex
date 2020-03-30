@@ -31,11 +31,6 @@ export default new Vuex.Store({
       })
     },
     cartTotal(state, getters){
-      /*let total = 0
-      getters.cartProducts.forEach(product => {
-        total += product.price * product.quantity
-      })
-      return total;*/
       return getters.cartProducts.reduce( (total, product) => total + product.price * product.quantity, 0)
     },
     productIsInStock(){
@@ -61,13 +56,6 @@ export default new Vuex.Store({
       //make the call
       //run setProducts mutation
     },
-    /*addToCar(context, product){
-      if (product.inventory > 0){
-        context.commit('pushProductToCart', product);
-      }else{
-
-      }
-    }*/
 
     addProductToCart({ state, getters, commit }, product){
       if ( getters.productIsInStock(product)  > 0){

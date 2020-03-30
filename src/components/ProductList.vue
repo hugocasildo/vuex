@@ -21,26 +21,29 @@
 </template>
 
 <script>
-
-import shop from '@/api/shop.js'
+import { mapState } from 'vuex'
 
 export default {
   data(){
     return {
-      loading: false
+      loading: false,
+      productIndex: 1
     }
   },
-  computed: {
+  //computed: mapState(['product']),
+  computed: mapState({
+    products: state => state.products
+    //allProducts: 'products'
+    }),
+  /*computed: {
     products() {
       return this.$store.state.products
-      //return this.$store.getters.availableProducts
-      //return this.$.state.products
     },
     productIsInStock() {
       return this.$store.getters.productIsInStock
     }
 
-  },
+  },*/
   methods:{
     addProductToCart(product){
       this.$store.dispatch('addProductToCart', product)
