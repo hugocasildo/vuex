@@ -5,7 +5,16 @@
     <ul>
       <li v-for="product in products" :key="product.title"> {{product.title}} - {{product.price  | currency }} -{{product.inventory}}
 
-        <button @click="addProductToCart(product)">Add To Cart</button>
+        <button
+        :disabled="!productIsInStock(product)"
+        @click="addProductToCart(product)">
+        Add To Cart
+        </button>
+        <!--<button
+        :disabled="!product.inventory > 0"
+        @click="addProductToCart(product)">
+        Add To Cart
+        </button>-->
       </li>
     </ul>
   </div>
@@ -23,9 +32,14 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.getters.availableProducts
+      return this.$store.state.products
+      //return this.$store.getters.availableProducts
       //return this.$.state.products
+    },
+    productIsInStock() {
+      return this.$store.getters.productIsInStock
     }
+
   },
   methods:{
     addProductToCart(product){
