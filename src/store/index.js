@@ -1,14 +1,12 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import shop from "@/api/shop";
+import actions from './actions'
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  //data
   state: {
     products:[],
-    //{id, quantity}
     cart:[],
     checkoutStatus: null
   },
@@ -43,54 +41,7 @@ export default new Vuex.Store({
   // Diferencia entre actions y mutatios
   //
   //Igual a metodos
-  actions: {
-    fetchProducts({commit}){
-      return new Promise((resolve, reject) => {
-        shop.getProducts( products => {
-          commit('setProducts', products);
-          resolve();
-        });
-
-      });
-    //fetchProducts(context){
-      //make the call
-      //run setProducts mutation
-    },
-
-    addProductToCart({ state, getters, commit }, product){
-      if ( getters.productIsInStock(product)  > 0){
-        const cartItem = state.cart.find(item => item.id === product.id )
-        //fin cartitem
-        if (!cartItem){
-          commit('pushProductToCart', product.id)
-          //pushprodcuttoCart
-        } else{
-          commit('incrementItemQuantity',  cartItem)
-          //incrementItemQuantity
-        }
-        commit('decrementProductInventory', product)
-      }
-    },
-
-    checkout({state, commit}) {
-    // se va a usar state y commit en lugar de context
-    //checkout(context){
-
-      shop.buyProducts(
-        state.cart,
-        //context.state.cart,
-        () => {
-          commit('emptyCart')
-          //context.commit('emptyCart')
-          commit('setCheckoutStatus', 'success')
-        },
-        () => {
-          commit('setCheckoutStatus', 'fail')
-        }
-      )
-
-    }
-  },
+  actions,
   //Responsable de setear la información
   //Responsables para simples cambios
   mutations: {
