@@ -32,17 +32,15 @@ export default {
   },
   computed: {
     ...mapState({
-      products: state => state.products
+      products: state => state.products.items
     }),
-    /*products() {
-      return this.$store.state.products
-    },*/
+
+
+
+
     ...mapGetters({
       productIsInStock: 'productIsInStock'
-    }),/*
-    productIsInStock() {
-      return this.$store.getters.productIsInStock
-    }*/
+    }),
 
   },
   methods:{

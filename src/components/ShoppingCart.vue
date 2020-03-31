@@ -22,14 +22,8 @@ export default {
       products: 'cartProducts',
       total: 'cartTotal'
     }),
-    /*products(){
-      return this.$store.getters.cartProducts
-    },*/
-    /*total(){
-      return this.$store.getters.cartTotal
-    }*/
     ...mapState({
-      checkoutStatus: 'checkoutStatus'
+      checkoutStatus: state => state.cart.checkoutStatus
     })
   },
   methods: {
